@@ -1,0 +1,49 @@
+Xft.dpi: 120
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! urxvt config
+URxvt.termName: rxvt-unicode-256color
+URxvt.font: xft:Inziu Iosevka SC:size=14
+URxvt.letterSpace: 1
+URxvt.transparent: true
+URxvt.tintColor: white
+URxvt.shading: 20
+URxvt.scrollBar: false
+URxvt.visualBell: true
+
+URxvt.foreground: white
+URxvt.background: black
+URxvt.colorBD: yellow
+URxvt.colorUL: green
+URxvt.color0:  #2E3436
+URxvt.color1:  #a40000
+URxvt.color2:  #4E9A06
+URxvt.color3:  #C4A000
+URxvt.color4:  #3465A4
+URxvt.color5:  #75507B
+URxvt.color6:  #ce5c00
+URxvt.color7:  #babdb9
+URxvt.color8:  #555753
+URxvt.color9:  #EF2929
+URxvt.color10: #8AE234
+URxvt.color11: #FCE94F
+URxvt.color12: #729FCF
+URxvt.color13: #AD7FA8
+URxvt.color14: #fcaf3e
+URxvt.color15: #EEEEEC
+
+URxvt.perl-ext-common: default,tabbed,selection-to-clipboard,clipboard
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.tabbed.tabbar-fg: 8
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 1
+URxvt.tabbed.tab-bg: 0
+
+! rofi config
+rofi.font: monospace 14
