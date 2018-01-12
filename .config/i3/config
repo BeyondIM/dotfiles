@@ -151,27 +151,31 @@ for_window [class="^netease-cloud-music$"] fullscreen disable, floating enable, 
 assign [class="^keepassxc$"] 3
 for_window [class="^keepassxc$"] fullscreen disable, floating enable, sticky disable, resize set 1280 800
 
-assign [class="^smplayer$"] 3
-for_window [class="^smplayer$"] fullscreen disable, floating enable, sticky disable, resize set 1280 960, move position 320 60
+assign [class="^mpv$"] 3
+for_window [class="^mpv$"] fullscreen disable, floating enable, sticky disable, resize set 1280 960, move position 320 60
 
 bindsym $mod+y fullscreen disable; floating enable; sticky enable; resize set 640 480; move position 1280 0
 
 # title format
-for_window [class="^URxvt$"]            title_format "URxvt  ➤  %title"
-for_window [class="^Google-chrome$"]    title_format "Chrome  ➤  %title"
-for_window [class="^Pcmanfm$"]          title_format "Pcmanfm  ➤  %title"
-for_window [class="^Sublime_text$"]     title_format "Sublime text  ➤  %title"
-for_window [class="^Wps$"]              title_format "WPS  ➤  %title"
-for_window [class="^Foxit Reader$"]     title_format "Foxit Reader  ➤  %title"
+for_window [class="^URxvt$"]            	title_format "<span foreground='#ff9244'><b>URxvt</b></span>  ➤  %title"
+for_window [class="^Google-chrome$"]    	title_format "<span foreground='#ff9244'><b>Chrome</b></span>  ➤  %title"
+for_window [class="^Pcmanfm$"]          	title_format "<span foreground='#ff9244'><b>Pcmanfm</b></span>  ➤  %title"
+for_window [class="^Sublime_text$"]     	title_format "<span foreground='#ff9244'><b>Sublime text</b></span>  ➤  %title"
+for_window [class="^Wps$"]              	title_format "<span foreground='#ff9244'><b>WPS</b></span>  ➤  %title"
+for_window [class="^Foxit Reader$"]     	title_format "<span foreground='#ff9244'><b>Foxit Reader</b></span>  ➤  %title"
+for_window [class="^Gimp$"]     		title_format "<span foreground='#ff9244'><b>Gimp</b></span>  ➤  %title"
+for_window [class="^VirtualBox Manager$"]     	title_format "<span foreground='#ff9244'><b>VirtualBox Manager</b></span>  ➤  %title"
+for_window [class="^VirtualBox Machine$"]	title_format "<span foreground='#ff9244'><b>VirtualBox Machine</b></span>  ➤  %title"
 
 # shortcuts
 bindsym $mod+Shift+b    exec optirun google-chrome --disable-gpu-sandbox --enable-native-gpu-memory-buffers
-bindsym $mod+Shift+s    exec optirun subl
-bindsym $mod+Shift+m    exec optirun netease-cloud-music
-bindsym $mod+Shift+v    exec optirun smplayer
-bindsym $mod+Shift+f    exec optirun pcmanfm
-bindsym $mod+Shift+w    exec optirun wps
-bindsym $mod+Shift+p    exec optirun /opt/foxitreader/FoxitReader.sh
+bindsym $mod+Shift+s    exec subl
+bindsym $mod+Shift+m    exec netease-cloud-music
+bindsym $mod+Shift+f    exec pcmanfm
+bindsym $mod+Shift+w    exec wps
+bindsym $mod+Shift+p    exec /opt/foxitreader/FoxitReader.sh
+bindsym $mod+Shift+v    exec virtualbox
+bindsym $mod+Shift+g    exec optirun gimp
 bindsym $mod+Print      exec scrot '%Y%m%d-%H%M%S.png' -e 'mv $f ~/Pictures/'
 
 # launch on start

@@ -14,6 +14,7 @@ dotfiles=(
   '.config/youtube-dl'
   '.config/i3'
   '.config/fontconfig'
+  '.config/mpv'
 )
 for i in "${dotfiles[@]}"; do
   if [[ "${i%/*}" != "$i" ]] && [[ ! -d "${HOME}/${i%/*}" ]]; then
