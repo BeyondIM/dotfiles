@@ -8,7 +8,7 @@ Xft.rgba: rgb
 
 ! urxvt config
 URxvt.termName: rxvt-unicode-256color
-URxvt.font: xft:Inziu Iosevka SC:size=14
+URxvt.font: xft:Sarasa Mono SC:size=14
 URxvt.letterSpace: 1
 URxvt.transparent: true
 URxvt.tintColor: white
@@ -37,8 +37,7 @@ URxvt.color13: #AD7FA8
 URxvt.color14: #fcaf3e
 URxvt.color15: #EEEEEC
 
-URxvt.perl-ext-common: default,tabbed,selection-to-clipboard,clipboard
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.perl-ext-common: default,tabbed,selection-to-clipboard
 URxvt.iso14755: False
 URxvt.tabbed.tabbar-fg: 8
 URxvt.tabbed.tabbar-bg: 0

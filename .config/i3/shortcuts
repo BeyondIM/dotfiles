@@ -1,0 +1,68 @@
+conky.config = {
+	alignment = 'bottom_left',
+	background = true,
+	color2 = '5D7B86',
+	cpu_avg_samples = 2,
+	default_color = 'F9FAF9',
+	double_buffer = true,
+	font = 'Noto Sans Mono CJK SC:size=8',
+	draw_shades = false,
+	gap_x = 25,
+	gap_y = 45,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 2.0,
+	use_xft = true,
+}
+conky.text = [[
+${color}mod+Ctrl+m${color2} - alsamixer
+${color}mod+Ctrl+x${color2} - xkill
+${color}Print${color2} - i3-scrot
+${color}mod+Print${color2} - i3-scrot -w
+${color}mod+Shift+Print${color2} - i3-scrot -s
+---
+${color}mod+Shift+b${color2} - google-chrome-stable
+${color}mod+Shift+c${color2} - code
+${color}mod+Shift+m${color2} - netease-cloud-music
+${color}mod+Shift+f${color2} - pcmanfm
+${color}mod+Shift+w${color2} - wps
+${color}mod+Shift+p${color2} - foxitreader
+${color}mod+Shift+v${color2} - virtualbox
+${color}F11${color2} - rofi -show run
+${color}F12${color2} - rofi -show window
+---
+${color}mod+Tab${color2} - workspace next
+${color}mod1+Tab${color2} - workspace prev
+${color}mod+b${color2} - workspace back_and_forth
+${color}mod+Ctrl+b${color2} - move container to workspace back_and_forth; workspace back_and_forth
+${color}mod+1-8${color2} - workspace 1-8
+${color}mod+Ctrl+1-8${color2} - move container to workspace 1-8
+${color}mod+Shift+1-8${color2} - move container to workspace 1-8; workspace 1-8
+${color}mod+Left${color2} - focus left
+${color}mod+Down${color2} - focus down
+${color}mod+Up${color2} - focus up
+${color}mod+Right${color2} - focus right
+${color}mod+a${color2} - focus parent
+${color}mod+Shift+Left${color2} - move left
+${color}mod+Shift+Down${color2} - move down
+${color}mod+Shift+Up${color2} - move up
+${color}mod+Shift+Right${color2} - move right
+${color}mod+h${color2} - split h
+${color}mod+v${color2} - split v
+---
+${color}mod+f${color2} - fullscreen toggle
+${color}mod+e${color2} - layout toggle
+${color}mod+Shift+space${color2} - floating toggle
+${color}mod+space${color2} - focus toggle
+${color}mod+Shift+s${color2} - sticky toggle
+---
+${color}mod+minus${color2} - move scratchpad
+${color}mod+plus${color2} - scratchpad show
+---
+${color}mod+0${color2} - blurlock
+${color}mod+m${color2} - bar toggle
+${color}mod+Ctrl+g${color2} - gaps
+]]

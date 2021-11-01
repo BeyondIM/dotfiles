@@ -1,9 +1,0 @@
---- 
-:bulk_threshold: 1000
-:benchmark: false
-:sources: 
-- https://gems.ruby-china.org
-:update_sources: true
-:backtrace: false
-:verbose: true
-gem: --no-document

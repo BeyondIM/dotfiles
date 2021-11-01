@@ -2,13 +2,8 @@
 dir=$(cd "${0%/*}" && pwd)
 dotfiles=(
   '.zshenv'
-  '.zshrc'
-  '.zlogin'
-  '.zimrc'
   '.Xresources'
   '.tmux.conf'
-  '.irbrc'
-  '.gemrc'
   '.aria2/aria2.conf'
   'bin'
   '.config/youtube-dl'
