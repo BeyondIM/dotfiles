@@ -37,6 +37,10 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 bindsym XF86MonBrightnessUp   exec "xbacklight -inc 10; notify-send 'brightness up'"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
+# window dimming enable or disable (uses xdotool and xprop to set a anti-dim flag, which picom recognises in focus-exclude array)
+bindsym $mod+mod1+a exec xprop -id $(xdotool getactivewindow) -f ANTIDIM_FLAG 8c -set ANTIDIM_FLAG 1; exec notify-send 'anti-dim set on window'
+bindsym $mod+mod1+d exec xprop -id $(xdotool getactivewindow) -remove ANTIDIM_FLAG; exec notify-send 'dim set on window'
+
 # Start a terminal
 bindsym $mod+Return exec ~/bin/urxvt.sh
 
@@ -52,10 +56,7 @@ bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 # Apps bindings
 bindsym $mod+Shift+b exec google-chrome-stable
 bindsym $mod+Shift+c exec /opt/sublime_text/sublime_text
-bindsym $mod+Shift+m exec netease-cloud-music
-bindsym $mod+Shift+f exec pcmanfm-qt
-bindsym $mod+Shift+w exec wps
-bindsym $mod+Shift+p exec foxitreader
+bindsym $mod+Shift+f exec doublecmd
 
 # Rofi bindings
 bindsym F11 exec rofi -show run
@@ -80,7 +81,7 @@ set $ws8 8
 
 # Navigate workspaces next / previous
 bindsym $mod+Tab workspace next
-bindsym mod1+Tab workspace prev
+bindsym $mod+Shift+Tab workspace prev
 
 # Workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
@@ -131,6 +132,16 @@ bindsym $mod+Shift+Left  move left
 bindsym $mod+Shift+Down  move down
 bindsym $mod+Shift+Up    move up
 bindsym $mod+Shift+Right move right
+
+# Double stacks swap
+bindsym $mod+comma focus parent, focus left, focus child
+bindsym $mod+period focus parent, focus right, focus child
+
+set $layout $(i3-msg -t get_tree | jq -r 'recurse(.nodes[];.nodes!=null)|select(.nodes[].focused).layout')
+set $length $(i3-msg -t get_tree | jq -r 'recurse(.nodes[];.nodes!=null)|select(.nodes[].focused).nodes' | jq length)
+
+bindsym $mod+Shift+comma exec "LEN=$length; if [ \\"$LEN\\" -gt 1 ]; then RST=$layout; i3-msg layout stacked, focus left; LST=$layout; i3-msg layout stacked, focus right, move left, layout $LST, focus parent, focus right, layout $RST; fi"
+bindsym $mod+Shift+period exec "LEN=$length; if [ \\"$LEN\\" -gt 1 ]; then LST=$layout; i3-msg layout stacked, focus right; RST=$layout; i3-msg layout stacked, focus left, move right, layout $RST, focus parent, focus left, layout $LST; fi"
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -183,46 +194,62 @@ bindsym $mod+plus scratchpad show
 for_window [window_role="GtkFileChooserDialog"] floating enable, sticky enable, resize set 800 600, move position 560 240
 for_window [class="config-gtk3$"] floating enable, sticky enable, resize set 800 600, move position 560 240
 
-assign [class="^mpv$"] 6
-for_window [class="^mpv$"] fullscreen disable, floating enable, sticky disable, resize set 1280 960, move position 320 60
+assign [title="^Clash for Windows$"] 4
+for_window [title="^Clash for Windows$"] fullscreen disable, floating enable, sticky disable, resize set 1275 905, move position 0 1210
 
-assign [class="^scrcpy$"] 4
-for_window [class="^scrcpy$"] fullscreen disable, floating enable, sticky disable, resize set 360 640, move position 1560 120
+assign [class="^dingtalkgov.exe$" title="^浙政钉$"] 4
+for_window [class="^dingtalkgov.exe$" title="^浙政钉$"] fullscreen disable, floating enable, sticky disable, resize set 1465 1205, move position 0 0
+assign [class="^dingtalkgov.exe$" title="^在线"] 4
+for_window [class="^dingtalkgov.exe$" title="^在线"] fullscreen disable, floating enable, sticky enable
+assign [class="^dingtalkgov.exe$" title="分享的图片$"] 4
+for_window [class="^dingtalkgov.exe$" title="分享的图片$"] fullscreen disable, floating enable, sticky enable
+assign [class="^dingtalkgov.exe$" title="工作$"] 4
+for_window [class="^dingtalkgov.exe$" title="工作$"] fullscreen disable, floating enable, sticky enable
 
-assign [title="^Clash for Windows$"] 8
-for_window [title="^Clash for Windows$"] fullscreen disable, floating enable, sticky disable, resize set 1063 754, move position 1560 120
+assign [class="^wechat.exe$" title="^微信$"] 4
+for_window [class="^wechat.exe$" title="^微信$"] fullscreen disable, floating enable, sticky disable, resize set 1465 1205, move position 1470 0
+assign [class="^wechat.exe$.exe$" title="^聊天文件$"] 4
+for_window [class="^wechat.exe$" title="^聊天文件$"] fullscreen disable, floating enable, sticky enable, resize set 1465 1205, move position 1470 0
+assign [class="^wechat.exe$" title="^朋友圈$"] 4
+for_window [class="^wechat.exe$" title="^朋友圈$"] fullscreen disable, floating enable, sticky enable, resize set 825 1205, move position 1470 0
 
-assign [title="^netease-cloud-music$"] 6
-for_window [title="^netease-cloud-music$"] fullscreen disable, floating enable, sticky disable, resize set 1280 960, move position 320 60
+assign [class="^Netease-cloud-music-gtk$"] 4
+for_window [class="^Netease-cloud-music-gtk$"] fullscreen disable, floating enable, sticky disable, resize set 1304 1051, move position 1277 1060
 
-assign [class="^Zeal$"] 4
-assign [class="^Vmware$"] 2
+assign [class="^TelegramDesktop$"] 4
+for_window [class="^TelegramDesktop$"] fullscreen disable, floating enable, sticky disable, resize set 1355 1205, move position 2485 910
+
+assign [class="^wpsoffice$"] 2
+assign [class="^Double Commander$"] 2
+assign [class="^Fsearch$"] 2
 
 for_window [title="alsamixer"] floating enable border pixel 1
 for_window [class="Pamac-manager"] floating enable
 for_window [class="Peek"] floating enable
 for_window [class="Yad"] floating enable
+for_window [class="SimpleScreenRecorder"] floating enable
 
 bindsym $mod+y fullscreen disable; floating enable; sticky enable; resize set 640 480; move position 1280 0
 
 # Title format
 for_window [class="^URxvt$"]                    title_format "<span foreground='#66ff00'><b>URxvt</b></span>  ➤  %title"
 for_window [class="^Google-chrome$"]    	title_format "<span foreground='#ff9244'><b>Chrome</b></span>  ➤  %title"
-for_window [class="^pcmanfm-qt$"]          	title_format "<span foreground='#0099ff'><b>Pcmanfm</b></span>  ➤  %title"
+for_window [class="^Double Commander$"]         title_format "<span foreground='#0099ff'><b>Double Commander</b></span>  ➤  %title"
 for_window [class="^Sublime_text$"]     	title_format "<span foreground='#EE92FF'><b>Sublime Text</b></span>  ➤  %title"
-for_window [class="^Wps$"]              	title_format "<span foreground='#ff6699'><b>WPS 文字</b></span>  ➤  %title"
-for_window [class="^Et$"]              		title_format "<span foreground='#ff6699'><b>WPS 表格</b></span>  ➤  %title"
-for_window [class="^Foxit Reader$"]     	title_format "<span foreground='#cc99cc'><b>Foxit Reader</b></span>  ➤  %title"
+for_window [class="^wpsoffice$"]              	title_format "<span foreground='#ff6699'><b>WPS</b></span>  ➤  %title"
 for_window [class="^Seafile Client$"]     	title_format "<span foreground='#ff0000'><b>Seafile Client</b></span>  ➤  %title"
-for_window [class="^Vmware$"]       		title_format "<span foreground='#ff9244'><b>Vmware</b></span>  ➤  %title"
+for_window [class="^VirtualBox Machine$"]       title_format "<span foreground='#EAE6CA'><b>VirtualBox Machine</b></span>  ➤  %title"
+for_window [class="^VirtualBox Manager$"]       title_format "<span foreground='#EAE6CA'><b>VirtualBox Manager</b></span>  ➤  %title"
 for_window [class="^Bcompare$"]       		title_format "<span foreground='#ff6666'><b>BCompare</b></span>  ➤  %title"
 for_window [class="^TelegramDesktop$"]       	title_format "<span foreground='#c266ff'><b>Telegram</b></span>  ➤  %title"
-for_window [class="^org.remmina.Remmina$"]      title_format "<span foreground='#cccc00'><b>RDP</b></span>  ➤  %title"
-for_window [class="^Zeal$"]      		title_format "<span foreground='#F4D03F'><b>Zeal</b></span>  ➤  %title"
 for_window [class="^jetbrains-idea$"]      	title_format "<span foreground='#34A54F'><b>IDEA</b></span>  ➤  %title"
-for_window [class="^Joplin$"]      		title_format "<span foreground='#EDFF21'><b>Joplin</b></span>  ➤  %title"
+for_window [class="^obsidian$"]      		title_format "<span foreground='#EDFF21'><b>Obsidian</b></span>  ➤  %title"
 for_window [class="^Zotero$"]      		title_format "<span foreground='#9C9C9C'><b>Zotero</b></span>  ➤  %title"
-for_window [class="^projector-launcher$"]      	title_format "<span foreground='#A89124'><b>Projector</b></span>  ➤  %title"
+for_window [class="^projector-launcher$"]      	title_format "<span foreground='#d25d56'><b>Projector</b></span>  ➤  %title"
+for_window [class="^Fsearch$"]                  title_format "<span foreground='#c18c5f'><b>Fsearch</b></span>  ➤  %title"
+for_window [class="^Filezilla$"]                title_format "<span foreground='#7bb06b'><b>Filezilla</b></span>  ➤  %title"
+for_window [class="^qpdfview$"]                 title_format "<span foreground='#ddd972'><b>Qpdfview</b></span>  ➤  %title"
+for_window [class="^Gimp"]                     	title_format "<span foreground='#c560cc'><b>Gimp</b></span>  ➤  %title"
 
 # Switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -232,19 +259,23 @@ for_window [urgent=latest] focus
 #################
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+exec --no-startup-id nitrogen --restore; sleep 1; picom -b
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 #exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
-# exec_always --no-startup-id sbxkb
-exec --no-startup-id start_conky_maia
+#exec_always --no-startup-id sbxkb
+exec --no-startup-id /home/beyondim/bin/start-conky.sh
 exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id fix_xcursor
-#exec --no-startup-id seafile-applet &
+#exec --no-startup-id QT_SCREEN_SCALE_FACTORS=1.5 seafile-applet &
 #exec --no-startup-id aria2c
 #exec --no-startup-id ibus-daemon -drx
 exec --no-startup-id fcitx &
+#exec --no-startup-id blueman-applet &
+exec --no-startup-id easystroke &
+exec --no-startup-id /home/beyondim/bin/update-clash-subscription.sh
+exec --no-startup-id alttab -fg "#d58681" -bg "#4a4a4a" -frame "#eb564d" -t 128x150 -i 127x64
 
 ##############
 ### Themes ###
@@ -293,8 +324,8 @@ bar {
 	position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
+	tray_output primary
+#	tray_output DP-1
 
 	bindsym button4 nop
 	bindsym button5 nop
@@ -370,4 +401,3 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
